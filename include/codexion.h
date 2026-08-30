@@ -1,9 +1,6 @@
 #ifndef CODEXION_H
 # define CODEXION_H
 
-int	is_valid_number(char *num_check);
-
-
 typedef enum e_scheduler_type
 {
     FIFO,
@@ -21,5 +18,9 @@ typedef struct s_codexion_config
 	int	dongle_cooldown;
 	t_scheduler_type	scheduler;
 } t_codexion_config;
+
+int	is_valid_number(char *num_check);
+long long ft_atol(char *str);
+int	parse_args(int argc, char **argv, t_codexion_config *config);
 
 #endif

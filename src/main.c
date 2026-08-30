@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/08/30 03:29:24 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/08/30 05:32:46 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@
 
 int	main(int argc, char **argv)
 {
-	(void)argc; 
-	printf("%d\n", is_valid_number(argv[1]));
-	printf("This is atoi res: %d\n", atoi(argv[1]));
+	(void)argc;
+	t_codexion_config config;
+
+	if (!parse_args(argc, argv, &config))
+	{
+		fprintf(stderr, "Error detected - PARSING FAILED...\n");
+		return (1);
+	}
 	return (0);
 }
