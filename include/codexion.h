@@ -1,6 +1,7 @@
 #ifndef CODEXION_H
 # define CODEXION_H
 
+#include <pthread.h>
 typedef enum e_scheduler_type
 {
     FIFO,
@@ -15,9 +16,17 @@ typedef struct s_codexion_config
 	int	time_to_debug;
 	int	time_to_refactor;
 	int	number_of_compiles_required;
-	int	dongle_cooldown;
+	long	dongle_cooldown;
 	t_scheduler_type	scheduler;
 } t_codexion_config;
+
+typedef struct s_dongle
+{
+    pthread_mutex_t	dongle_mutex;
+    pthread_cond_t	dongle_wait;
+    int	available;
+    long	available_after;
+} t_dongle;
 
 int	is_valid_number(char *num_check);
 long long ft_atol(char *str);
