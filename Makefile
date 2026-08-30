@@ -1,6 +1,6 @@
 NAME = codexion
 
-SRCS = src/main.c src/test.c
+SRCS = src/main.c src/parsing/parse_args.c
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
