@@ -1,7 +1,13 @@
 #ifndef CODEXION_H
 # define CODEXION_H
 
+#define _POSIX_C_SOURCE 200809L
 #include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <string.h>
+
 typedef enum e_scheduler_type
 {
     FIFO,
@@ -23,10 +29,28 @@ typedef struct s_codexion_config
 typedef struct s_dongle
 {
     pthread_mutex_t	dongle_mutex;
-    pthread_cond_t	dongle_wait;
+    pthread_cond_t	dongle_cond;
     int	available;
     long	available_after;
 } t_dongle;
+
+typedef struct s_sim
+{
+	t_codexion_config	config;
+	t_dongle	*dongles;
+	pthread_mutex_t	log_lock;
+	long	start_time;
+}	t_sim;
+typedef struct s_coder
+{
+	int	id;
+	pthread_t	thread;
+	t_dongle	*left_dongle;
+	t_dongle	*right_dongle;
+	long	last_compile_start;
+	int	compile_count;
+	t_sim	*sim;
+}	t_coder;
 
 int	is_valid_number(char *num_check);
 long long ft_atol(char *str);

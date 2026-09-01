@@ -6,12 +6,11 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/30 03:38:09 by anasinda          #+#    #+#             */
-/*   Updated: 2026/08/30 22:38:49 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/01 02:17:46 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-#include <string.h>
 
 int	parse_args(int argc, char **argv, t_codexion_config *config)
 {
