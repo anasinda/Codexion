@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/30 03:38:09 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/01 02:17:46 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/01 04:31:52 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ int	parse_args(int argc, char **argv, t_codexion_config *config)
 	int i;
 
 	if (argc != 9)
-		return (0);
+		return (-1);
 
 	i = 1;
 	while (i <= 7)
 	{
 		if (!is_valid_number(argv[i]))
-			return (0);
+			return (-1);
 
 		if ((ft_atol(argv[i]) == 0 && i == 1) || (ft_atol(argv[i]) == 0 && i == 6))
-			return (0);
+			return (-1);
 
 		i++;
 	}
@@ -36,7 +36,7 @@ int	parse_args(int argc, char **argv, t_codexion_config *config)
 	else if (strcmp(argv[i], "edf") == 0)
 		config->scheduler = EDF;
 	else
-		return (0);
+		return (-1);
 
 	config->number_of_coders = ft_atol(argv[1]);
 	config->time_to_burnout = ft_atol(argv[2]);
@@ -46,5 +46,5 @@ int	parse_args(int argc, char **argv, t_codexion_config *config)
 	config->number_of_compiles_required = ft_atol(argv[6]);
 	config->dongle_cooldown = ft_atol(argv[7]);
 
-	return (1);
+	return (0);
 }
