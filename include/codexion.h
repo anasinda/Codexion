@@ -52,6 +52,20 @@ typedef struct s_coder
 	t_sim	*sim;
 }	t_coder;
 
+typedef struct s_heap_entry
+{
+	long	key;
+	t_coder	*coder;
+} t_heap_entry;
+
+typedef	struct s_heap
+{
+	t_heap_entry	*entries;
+	int	capacity;
+	int	size;
+}	t_heap;
+
+
 int	is_valid_number(char *num_check);
 long long ft_atol(char *str);
 int	parse_args(int argc, char **argv, t_codexion_config *config);

@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/30 03:38:09 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/01 04:31:52 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/02 02:54:06 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,7 @@ int	parse_args(int argc, char **argv, t_codexion_config *config)
 
 	return (0);
 }
+
+// parent = i - 1 / 2
+// children left = 2 * i + 1
+// children right = 2 * i + 2
