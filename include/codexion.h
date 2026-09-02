@@ -34,13 +34,6 @@ typedef struct s_dongle
     long	available_after;
 } t_dongle;
 
-typedef struct s_sim
-{
-	t_codexion_config	config;
-	t_dongle	*dongles;
-	pthread_mutex_t	log_lock;
-	long	start_time;
-}	t_sim;
 typedef struct s_coder
 {
 	int	id;
@@ -65,6 +58,14 @@ typedef	struct s_heap
 	int	size;
 }	t_heap;
 
+typedef struct s_sim
+{
+	t_codexion_config	config;
+	t_dongle	*dongles;
+	t_heap	heap;
+	pthread_mutex_t	log_lock;
+	long	start_time;
+}	t_sim;
 
 int	is_valid_number(char *num_check);
 long long ft_atol(char *str);
