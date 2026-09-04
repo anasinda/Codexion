@@ -68,8 +68,11 @@ typedef struct s_coder
 	t_sim	*sim;
 }	t_coder;
 
+long	get_current_time_ms(void);
+long	get_elapsed_time(t_sim *sim);
 int	is_valid_number(char *num_check);
 long long ft_atol(char *str);
 int	parse_args(int argc, char **argv, t_codexion_config *config);
+void	log_state(t_coder *coder, char *message);
 
 #endif
