@@ -34,16 +34,6 @@ typedef struct s_dongle
     long	available_after;
 } t_dongle;
 
-typedef struct s_coder
-{
-	int	id;
-	pthread_t	thread;
-	t_dongle	*left_dongle;
-	t_dongle	*right_dongle;
-	long	last_compile_start;
-	int	compile_count;
-	t_sim	*sim;
-}	t_coder;
 
 typedef struct s_heap_entry
 {
@@ -66,6 +56,17 @@ typedef struct s_sim
 	pthread_mutex_t	log_lock;
 	long	start_time;
 }	t_sim;
+
+typedef struct s_coder
+{
+	int	id;
+	pthread_t	thread;
+	t_dongle	*left_dongle;
+	t_dongle	*right_dongle;
+	long	last_compile_start;
+	int	compile_count;
+	t_sim	*sim;
+}	t_coder;
 
 int	is_valid_number(char *num_check);
 long long ft_atol(char *str);
