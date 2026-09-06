@@ -6,11 +6,22 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/01 04:31:29 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/06 15:52:05 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+void	*allocate_dongles(t_codexion_config *config)
+{
+	t_dongle *dongles;
+
+	dongles = malloc(sizeof(t_dongle) * config->number_of_coders);
+	if (!dongles)
+		return NULL;
+
+	return dongles;
+}
 
 int	main(int argc, char **argv)
 {
@@ -22,5 +33,9 @@ int	main(int argc, char **argv)
 		fprintf(stderr, "Error detected - PARSING FAILED...\n");
 		return (1);
 	}
+	
+	t_sim simulator;
+	
+	
 	return (0);
 }

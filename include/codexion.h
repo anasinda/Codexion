@@ -8,6 +8,10 @@
 #include <time.h>
 #include <string.h>
 
+typedef struct s_sim t_sim;
+typedef struct s_coder t_coder;
+typedef struct s_dongle t_dongle;
+
 typedef enum e_scheduler_type
 {
     FIFO,
@@ -45,7 +49,6 @@ typedef struct s_sim
 {
 	t_codexion_config	config;
 	t_dongle	*dongles;
-	t_heap	heap;
 	pthread_mutex_t	log_lock;
 	long	start_time;
 }	t_sim;
@@ -78,5 +81,13 @@ long long ft_atol(char *str);
 int	parse_args(int argc, char **argv, t_codexion_config *config);
 void	log_state(t_coder *coder, char *message);
 int	heap_init(t_heap *heap, int capacity);
+void	heap_push(t_heap *heap, long key, t_coder *coder);
+int	check_children(t_heap *heap, int index, int pos_small);
+int	dongle_init(t_dongle *dongles, int n);
+int	dongle_acquire(t_dongle	*dongle, long now);
+void	dongle_release(t_codexion_config *config, t_dongle *dongle, long now);
+void    coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n);
+void	*coder_routine(void *arg);
+
 
 #endif

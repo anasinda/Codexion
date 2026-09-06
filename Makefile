@@ -1,6 +1,8 @@
 NAME = codexion
 
-SRCS = src/main.c src/parsing/parse_args.c src/parsing/parse_utils.c
+SRCS = src/main.c src/parsing/parse_args.c src/parsing/parse_utils.c src/coder* src/dongle* src/schedular*
+src/utils* src/monitor*
+
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
