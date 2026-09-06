@@ -26,13 +26,6 @@ typedef struct s_codexion_config
 	t_scheduler_type	scheduler;
 } t_codexion_config;
 
-typedef struct s_dongle
-{
-    pthread_mutex_t	dongle_mutex;
-    pthread_cond_t	dongle_cond;
-    int	available;
-    long	available_after;
-} t_dongle;
 
 
 typedef struct s_heap_entry
@@ -57,6 +50,16 @@ typedef struct s_sim
 	long	start_time;
 }	t_sim;
 
+typedef struct s_dongle
+{
+	pthread_mutex_t	dongle_mutex;
+	pthread_cond_t	dongle_cond;
+	int	available;
+	long	available_after;
+	t_heap	heap;
+
+} t_dongle;
+
 typedef struct s_coder
 {
 	int	id;
@@ -74,5 +77,6 @@ int	is_valid_number(char *num_check);
 long long ft_atol(char *str);
 int	parse_args(int argc, char **argv, t_codexion_config *config);
 void	log_state(t_coder *coder, char *message);
+int	heap_init(t_heap *heap, int capacity);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 02:16:51 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/01 03:30:49 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/05 21:52:25 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	destroy_initialized_dongles(t_dongle	*dongles, int count)
 		count--;
 		pthread_cond_destroy(&dongles[count].dongle_cond);
 		pthread_mutex_destroy(&dongles[count].dongle_mutex);
+        free(dongles[count].heap.entries);
 	}
 }
 
@@ -35,11 +36,20 @@ int	dongle_init(t_dongle *dongles, int n)
 			destroy_initialized_dongles(dongles, i);
 			return (-1);
 		}
-		
+
 		if (pthread_cond_init(&dongles[i].dongle_cond, NULL) != 0)
 		{
 			fprintf(stderr, "Error detected - Cond init failed...\n");
 			pthread_mutex_destroy(&dongles[i].dongle_mutex);
+			destroy_initialized_dongles(dongles, i);
+			return (-1);
+		}
+
+		if (heap_init(&dongles[i].heap, 2) != 0)
+		{
+			fprintf(stderr, "Error detected - Heao init failed...\n");
+			pthread_cond_destroy(&dongles[i].dongle_cond);
+    		pthread_mutex_destroy(&dongles[i].dongle_mutex);
 			destroy_initialized_dongles(dongles, i);
 			return (-1);
 		}
