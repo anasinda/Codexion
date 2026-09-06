@@ -88,9 +88,9 @@ int	dongle_acquire(t_dongle	*dongle, long now);
 void	dongle_release(t_codexion_config *config, t_dongle *dongle, long now);
 void    coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n);
 void	*coder_routine(void *arg);
-void	*allocate_dongles(t_codexion_config *config);
+t_dongle	*allocate_dongles(t_codexion_config *config);
+t_coder *allocate_coders(t_codexion_config *config);
 int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_config *config);
-
 
 
 #endif

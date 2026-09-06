@@ -6,13 +6,13 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 17:56:01 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/06 17:56:25 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/06 18:26:21 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void	*allocate_dongles(t_codexion_config *config)
+t_dongle	*allocate_dongles(t_codexion_config *config)
 {
 	t_dongle *dongles;
 
