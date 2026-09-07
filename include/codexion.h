@@ -91,6 +91,6 @@ void	*coder_routine(void *arg);
 t_dongle	*allocate_dongles(t_codexion_config *config);
 t_coder *allocate_coders(t_codexion_config *config);
 int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_config *config);
-
+void destroy_initialized_dongles(t_dongle *dongles, int count);
 
 #endif

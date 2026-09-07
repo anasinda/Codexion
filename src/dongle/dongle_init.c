@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 02:16:51 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/05 21:52:25 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/07 16:37:34 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	dongle_init(t_dongle *dongles, int n)
 
 		if (heap_init(&dongles[i].heap, 2) != 0)
 		{
-			fprintf(stderr, "Error detected - Heao init failed...\n");
+			fprintf(stderr, "Error detected - Heap init failed...\n");
 			pthread_cond_destroy(&dongles[i].dongle_cond);
     		pthread_mutex_destroy(&dongles[i].dongle_mutex);
 			destroy_initialized_dongles(dongles, i);

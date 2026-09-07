@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/06 18:49:15 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/07 17:49:40 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,49 +28,71 @@ int	main(int argc, char **argv)
 		fprintf(stderr, "Error detected - PARSING FAILED...\n");
 		return (1);
 	}
-	
+
 	allocated_dongles = allocate_dongles(&config);
-	
+
 	if (!allocated_dongles)
 	{
 		fprintf(stderr, "Error detected - DONGLES FAILED TO ALLOCATE...\n");
 		return (1);
-	} 
+	}
 
-	dongle_init(allocated_dongles, config.number_of_coders);
-	
+	if (dongle_init(allocated_dongles, config.number_of_coders) == -1)
+    {
+        fprintf(stderr, "FAILED TO INIT DONGLES...\n");
+        free(allocated_dongles);
+        return (1);
+    }
+
 	if (simulator_init(&simulator, allocated_dongles, &config) == -1)
 	{
 		fprintf(stderr, "Error detected - FAILED TO INIT SIMULATOR...\n");
+        destroy_initialized_dongles(allocated_dongles, config.number_of_coders);
+        free(allocated_dongles);
 		return (1);
 	}
-	
+
 	allocated_coders = allocate_coders(&config);
-	
+
 	if (!allocated_coders)
 	{
 		fprintf(stderr, "Error detected - CODERS FAILED TO ALLOCATE...\n");
+        pthread_mutex_destroy(&simulator.log_lock);
+        destroy_initialized_dongles(allocated_dongles, config.number_of_coders);
+        free(allocated_dongles);
 		return (1);
 	}
-	
-	coder_init(allocated_coders, allocate_dongles, &simulator, config.number_of_coders);
+
+	coder_init(allocated_coders, allocated_dongles, &simulator, config.number_of_coders);
 	simulator.start_time = get_current_time_ms();
-	
+    if (simulator.start_time = -1)
+    {
+        free(allocated_coders);
+        pthread_mutex_destroy(&simulator.log_lock);
+        destroy_initialized_dongles(allocated_dongles, config.number_of_coders);
+        free(allocated_dongles);
+    }
+
 	coder_thread_count = 0;
-	
+
 	while (coder_thread_count < config.number_of_coders)
 	{
-		pthread_create(&allocated_coders[coder_thread_count].thread, NULL, coder_routine, &allocated_coders[coder_thread_count]);
-		coder_thread_count++;
+		if (pthread_create(&allocated_coders[coder_thread_count].thread, NULL, coder_routine, &allocated_coders[coder_thread_count]) != 0);
+            break;
+        coder_thread_count++;
 	}
-	
+
 	join_thread_count = 0;
 
-	while (join_thread_count < config.number_of_coders)
+	while (join_thread_count < coder_thread_count)
 	{
 		pthread_join(allocated_coders[join_thread_count].thread, NULL);
 		join_thread_count++;
 	}
-	
+
+    free(allocated_coders);
+    pthread_mutex_destroy(&simulator.log_lock);
+    destroy_initialized_dongles(allocated_dongles, config.number_of_coders);
+    free(allocated_dongles);
 	return (0);
 }
