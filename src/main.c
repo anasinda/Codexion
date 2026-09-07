@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/07 17:49:40 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/07 17:53:16 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,20 @@ int	main(int argc, char **argv)
 
 	coder_init(allocated_coders, allocated_dongles, &simulator, config.number_of_coders);
 	simulator.start_time = get_current_time_ms();
-    if (simulator.start_time = -1)
+    if (simulator.start_time == -1)
     {
         free(allocated_coders);
         pthread_mutex_destroy(&simulator.log_lock);
         destroy_initialized_dongles(allocated_dongles, config.number_of_coders);
         free(allocated_dongles);
+        return (1);
     }
 
 	coder_thread_count = 0;
 
 	while (coder_thread_count < config.number_of_coders)
 	{
-		if (pthread_create(&allocated_coders[coder_thread_count].thread, NULL, coder_routine, &allocated_coders[coder_thread_count]) != 0);
+		if (pthread_create(&allocated_coders[coder_thread_count].thread, NULL, coder_routine, &allocated_coders[coder_thread_count]) != 0)
             break;
         coder_thread_count++;
 	}
