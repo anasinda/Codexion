@@ -1,7 +1,21 @@
 NAME = codexion
 
-SRCS = src/main.c src/parsing/parse_args.c src/parsing/parse_utils.c src/coder* src/dongle* src/schedular*
-src/utils* src/monitor*
+SRCS = src/main.c \
+       src/parsing/parse_args.c \
+       src/parsing/parse_utils.c \
+       src/coder/coder_allocation.c \
+       src/coder/coder_init.c \
+       src/coder/coder_routine.c \
+       src/dongle/dongle_allocation.c \
+       src/dongle/dongle_init.c \
+       src/dongle/dongle_acquire.c \
+       src/dongle/dongle_release.c \
+       src/scheduler/heap_init.c \
+       src/scheduler/heap_push.c \
+       src/scheduler/heap_pop.c \
+       src/utils/logger.c \
+       src/utils/simulator_init.c \
+       src/utils/time_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
