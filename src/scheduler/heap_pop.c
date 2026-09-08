@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 03:50:00 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/08 03:46:20 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/08 18:32:25 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ int	check_children(t_heap *heap, int index, int pos_small)
 	{
 		if (heap->entries[left].key < heap->entries[pos_small].key)
 				pos_small = left;
+		else if (heap->entries[left].key == heap->entries[pos_small].key)
+		{
+			if (heap->entries[left].sequence < heap->entries[pos_small].sequence)
+				pos_small = left;
+		}
 	}
 	
 	right = (2 * index) + 2;
@@ -29,6 +34,11 @@ int	check_children(t_heap *heap, int index, int pos_small)
 	{
 		if (heap->entries[right].key < heap->entries[pos_small].key)
 				pos_small = right;
+		else if (heap->entries[right].key == heap->entries[pos_small].key)
+		{
+			if (heap->entries[right].sequence < heap->entries[pos_small].sequence)
+				pos_small = right;
+		}
 	}
 	return (pos_small);
 }
@@ -46,6 +56,7 @@ t_coder	*heap_pop(t_heap *heap)
 	heap->entries[0] = heap->entries[heap->size - 1];
 	heap->entries[heap->size - 1].coder = NULL;
 	heap->entries[heap->size - 1].key = -1;
+	heap->entries[heap->size - 1].sequence = -1;
 	heap->size -= 1;
 
 	index = 0;

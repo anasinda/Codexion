@@ -6,13 +6,13 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 03:05:08 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/08 04:02:28 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/08 04:08:40 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	heap_push(t_heap *heap, long key, t_coder *coder)
+int	heap_push(t_heap *heap, long key, long sequence, t_coder *coder)
 {
 	int	index;
 
@@ -23,6 +23,7 @@ int	heap_push(t_heap *heap, long key, t_coder *coder)
 	
 	heap->entries[heap->size].coder = coder;
 	heap->entries[heap->size].key = key;
+	heap->entries[heap->size].sequence = sequence;
 	heap->size += 1;
 	
 	index = heap->size - 1;
@@ -46,7 +47,8 @@ int	heap_push(t_heap *heap, long key, t_coder *coder)
 				heap->entries[parent] = heap->entries[index];
 				heap->entries[index] = temp_entry;
 				index = parent;
-			}
+			}else
+				break;
 		}else
 			break;
 	}
