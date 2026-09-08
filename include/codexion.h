@@ -35,6 +35,7 @@ typedef struct s_codexion_config
 typedef struct s_heap_entry
 {
 	long	key;
+	long	sequence;
 	t_coder	*coder;
 } t_heap_entry;
 
@@ -59,6 +60,7 @@ typedef struct s_dongle
 	pthread_cond_t	dongle_cond;
 	int	available;
 	long	available_after;
+	long	next_sequence;
 	t_heap	heap;
 
 } t_dongle;
@@ -81,7 +83,7 @@ long long ft_atol(char *str);
 int	parse_args(int argc, char **argv, t_codexion_config *config);
 void	log_state(t_coder *coder, char *message);
 int	heap_init(t_heap *heap, int capacity);
-void	heap_push(t_heap *heap, long key, t_coder *coder);
+int	heap_push(t_heap *heap, long key, t_coder *coder);
 int	check_children(t_heap *heap, int index, int pos_small);
 int	dongle_init(t_dongle *dongles, int n);
 int	dongle_acquire(t_dongle	*dongle, long now);
@@ -92,5 +94,6 @@ t_dongle	*allocate_dongles(t_codexion_config *config);
 t_coder *allocate_coders(t_codexion_config *config);
 int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_config *config);
 void destroy_initialized_dongles(t_dongle *dongles, int count);
+t_coder	*heap_peak(t_heap	*heap);
 
 #endif

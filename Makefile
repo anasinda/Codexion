@@ -15,12 +15,14 @@ SRCS = src/main.c \
        src/scheduler/heap_pop.c \
        src/utils/logger.c \
        src/utils/simulator_init.c \
-       src/utils/time_utils.c
+       src/utils/time_utils.c \
+       src/scheduler/heap_peak.c
 
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
 FLAGS = -Wall -Wextra -Werror -pthread
+DEBUG = -g
 HEADER = -Iinclude
 
 all: $(NAME)
@@ -29,7 +31,10 @@ $(NAME): $(OBJS)
 	$(CC) $(FLAGS) $(HEADER) $(OBJS) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) $(HEADER) -c $< -o $@
+	$(CC) $(DEBUG) $(FLAGS) $(HEADER) -c $< -o $@
+
+val: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) 3 800 200 200 200 2 50 fifo
 
 clean:
 	rm -f $(OBJS)

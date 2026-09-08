@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 02:16:51 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/07 16:37:34 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/08 03:59:43 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	dongle_init(t_dongle *dongles, int n)
 
 		dongles[i].available = 1;
 		dongles[i].available_after = 0;
+		dongles[i].next_sequence = 0;
 		i++;
 	}
 	return (0);

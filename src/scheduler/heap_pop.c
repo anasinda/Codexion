@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 03:50:00 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/02 05:20:26 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/08 03:46:20 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ t_coder	*heap_pop(t_heap *heap)
 	int	smallest;
 	int	index;
 	t_coder	*pop_smallest;
+
+	if (!heap || !heap->entries || heap->size == 0)
+		return (NULL);
 
 	pop_smallest = heap->entries[0].coder;
 	heap->entries[0] = heap->entries[heap->size - 1];
