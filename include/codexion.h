@@ -95,5 +95,6 @@ t_coder *allocate_coders(t_codexion_config *config);
 int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_config *config);
 void destroy_initialized_dongles(t_dongle *dongles, int count);
 t_coder	*heap_peek(t_heap	*heap);
+t_coder	*heap_pop(t_heap *heap);
 
 #endif
