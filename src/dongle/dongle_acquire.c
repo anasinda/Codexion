@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 04:08:05 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/09 01:35:11 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/09 23:04:04 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	dongle_acquire(t_dongle	*dongle, t_coder *coder)
 
     heap_pop(&dongle->heap);
     dongle->available = 0;
-
-	printf("REQUEST coder %d key=%ld seq=%ld\n",
-	coder->id, key, sequence);
+	
 	return (pthread_mutex_unlock(&dongle->dongle_mutex), 0);
 }

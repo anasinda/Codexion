@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/09 01:38:57 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/07 17:53:16 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,7 @@ int	main(int argc, char **argv)
     }
 
 	coder_thread_count = 0;
-    allocated_coders[0].last_compile_start = 300;
-    allocated_coders[1].last_compile_start = 100;
-    allocated_coders[2].last_compile_start = 200;
+
 	while (coder_thread_count < config.number_of_coders)
 	{
 		if (pthread_create(&allocated_coders[coder_thread_count].thread, NULL, coder_routine, &allocated_coders[coder_thread_count]) != 0)
