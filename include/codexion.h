@@ -60,6 +60,7 @@ typedef struct s_dongle
 {
 	pthread_mutex_t	dongle_mutex;
 	pthread_cond_t	dongle_cond;
+	int	id;
 	int	available;
 	long	available_after;
 	long	next_sequence;
