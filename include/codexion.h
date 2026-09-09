@@ -1,12 +1,14 @@
 #ifndef CODEXION_H
 # define CODEXION_H
 
+#define _DEFAULT_SOURCE
 #define _POSIX_C_SOURCE 200809L
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <unistd.h>
 
 typedef struct s_sim t_sim;
 typedef struct s_coder t_coder;
@@ -86,7 +88,7 @@ int	heap_init(t_heap *heap, int capacity);
 int	heap_push(t_heap *heap, long key, long sequence, t_coder *coder);
 int	check_children(t_heap *heap, int index, int pos_small);
 int	dongle_init(t_dongle *dongles, int n);
-int	dongle_acquire(t_dongle	*dongle, long now);
+int	dongle_acquire(t_dongle	*dongle, t_coder *coder);
 void	dongle_release(t_codexion_config *config, t_dongle *dongle, long now);
 void    coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n);
 void	*coder_routine(void *arg);

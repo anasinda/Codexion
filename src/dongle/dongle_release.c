@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 03:55:16 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/01 04:01:43 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/09 00:21:27 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	dongle_release(t_codexion_config *config, t_dongle *dongle, long now)
 {
+    pthread_mutex_lock(&dongle->dongle_mutex);
 	dongle->available = 1;
 	dongle->available_after = now + config->dongle_cooldown;
+    pthread_cond_broadcast(&dongle->dongle_cond);
+    pthread_mutex_unlock(&dongle->dongle_mutex);
 }
