@@ -39,6 +39,7 @@ typedef struct s_heap_entry
 	t_coder *coder;
 	long arrival;
 	long deadline;
+	long blocked;
 } t_heap_entry;
 
 typedef	struct s_heap
@@ -111,5 +112,7 @@ int	pair_usable_for(t_coder *coder);
 int	claim_pair(t_coder *coder);
 void	lock_pair(t_coder *coder, t_dongle **first, t_dongle **second);
 void	unlock_pair(t_dongle *first, t_dongle *second);
+int	request_should_yield(t_heap_entry *entry, t_sim *sim);
+int	try_pair_once(t_coder *coder, t_heap_entry *request);
 
 #endif

@@ -1,21 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_request.c                                    :+:      :+:    :+:   */
+/*   try_pair_once.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/10 04:30:43 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/10 06:06:00 by anasinda         ###   ########.fr       */
+/*   Created: 2026/09/10 06:02:00 by anasinda          #+#    #+#             */
+/*   Updated: 2026/09/10 06:02:10 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void    build_request(t_heap_entry *entry, t_coder *coder)
+int	try_pair_once(t_coder *coder, t_heap_entry *request)
 {
-    entry->blocked = 0;
-    entry->coder = coder;
-    entry->arrival = get_elapsed_time(coder->sim);
-    entry->deadline = coder->last_compile_start + coder->sim->config->time_to_burnout;
+	t_dongle	*first;
+	t_dongle	*second;
+	int			result;
+
+	lock_pair(coder, &first, &second);
+
+	if (queue_request_pair(coder, request) != 0)
+		result = -1;
+	else if (pair_usable_for(coder))
+	{
+		if (claim_pair(coder) != 0)
+			result = -1;
+		else
+			result = 1;
+	}
+	else
+		result = 0;
+
+	unlock_pair(first, second);
+	return (result);
 }
