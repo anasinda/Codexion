@@ -86,7 +86,7 @@ long long ft_atol(char *str);
 int	parse_args(int argc, char **argv, t_codexion_config *config);
 void	log_state(t_coder *coder, char *message);
 int	heap_init(t_heap *heap, int capacity);
-int	heap_push(t_heap *heap, long key, long sequence, t_coder *coder);
+int	heap_push(t_heap *heap, t_heap_entry new_entry, t_scheduler_type scheduler);
 int	check_children(t_heap *heap, int index, int pos_small);
 int	dongle_init(t_dongle *dongles, int n);
 int	dongle_acquire(t_dongle	*dongle, t_coder *coder);
@@ -102,5 +102,9 @@ t_coder	*heap_pop(t_heap *heap);
 void	order_dongles(t_coder *coder, t_dongle **first, t_dongle **second);
 int	acquire_dongle_pair(t_coder *coder);
 int	heap_find(t_heap *heap, int coder_id);
+int	request_is_better(t_heap_entry *a, t_heap_entry *b, t_scheduler_type scheduler);
+void    build_request(t_heap_entry *entry, t_coder *coder);
+int ensure_queued(t_dongle *dongle, t_heap_entry *entry, t_scheduler_type scheduler);
+
 
 #endif
