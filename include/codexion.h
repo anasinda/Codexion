@@ -105,6 +105,6 @@ int	heap_find(t_heap *heap, int coder_id);
 int	request_is_better(t_heap_entry *a, t_heap_entry *b, t_scheduler_type scheduler);
 void    build_request(t_heap_entry *entry, t_coder *coder);
 int ensure_queued(t_dongle *dongle, t_heap_entry *entry, t_scheduler_type scheduler);
-
+int	queue_request_pair(t_coder *coder, t_heap_entry *request);
 
 #endif
