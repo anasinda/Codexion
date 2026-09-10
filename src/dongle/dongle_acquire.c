@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 04:08:05 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/09 23:04:04 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/10 01:23:37 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,26 @@ int	dongle_acquire(t_dongle	*dongle, t_coder *coder)
 	if (heap_push(&dongle->heap, key, sequence, coder) != 0)
 		return (pthread_mutex_unlock(&dongle->dongle_mutex), -1);
 
-	now = get_elapsed_time(coder->sim);
-	while (!(dongle->available && now >= dongle->available_after && heap_peek(&dongle->heap) == coder))
-    {
-		pthread_cond_wait(&dongle->dongle_cond, &dongle->dongle_mutex);
+	while (1)
+	{
 		now = get_elapsed_time(coder->sim);
-    }
+		if (dongle->available
+			&& now >= dongle->available_after
+			&& heap_peek(&dongle->heap) == coder)
+			break ;
+		if (!dongle->available
+			|| heap_peek(&dongle->heap) != coder)
+		{
+			pthread_cond_wait(&dongle->dongle_cond,
+				&dongle->dongle_mutex);
+		}
+		else
+		{
+			pthread_mutex_unlock(&dongle->dongle_mutex);
+			usleep(1000);
+			pthread_mutex_lock(&dongle->dongle_mutex);
+		}
+	}
 
     heap_pop(&dongle->heap);
     dongle->available = 0;

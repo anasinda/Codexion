@@ -16,7 +16,9 @@ SRCS = src/main.c \
        src/utils/logger.c \
        src/utils/simulator_init.c \
        src/utils/time_utils.c \
-       src/scheduler/heap_peak.c
+       src/scheduler/heap_peak.c \
+       src/utils/order_dongles.c \
+       src/dongle/dongle_pair_acquire.c
 
 OBJS = $(SRCS:.c=.o)
 

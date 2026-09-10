@@ -99,5 +99,7 @@ int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_con
 void destroy_initialized_dongles(t_dongle *dongles, int count);
 t_coder	*heap_peek(t_heap	*heap);
 t_coder	*heap_pop(t_heap *heap);
+void	order_dongles(t_coder *coder, t_dongle **first, t_dongle **second);
+int	acquire_dongle_pair(t_coder *coder);
 
 #endif
