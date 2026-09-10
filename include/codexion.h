@@ -106,5 +106,10 @@ int	request_is_better(t_heap_entry *a, t_heap_entry *b, t_scheduler_type schedul
 void    build_request(t_heap_entry *entry, t_coder *coder);
 int ensure_queued(t_dongle *dongle, t_heap_entry *entry, t_scheduler_type scheduler);
 int	queue_request_pair(t_coder *coder, t_heap_entry *request);
+int	dongle_usable_for(t_dongle *dongle, t_coder *coder);
+int	pair_usable_for(t_coder *coder);
+int	claim_pair(t_coder *coder);
+void	lock_pair(t_coder *coder, t_dongle **first, t_dongle **second);
+void	unlock_pair(t_dongle *first, t_dongle *second);
 
 #endif
