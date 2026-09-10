@@ -36,9 +36,9 @@ typedef struct s_codexion_config
 
 typedef struct s_heap_entry
 {
-	long	key;
-	long	sequence;
-	t_coder	*coder;
+	t_coder *coder;
+	long arrival;
+	long deadline;
 } t_heap_entry;
 
 typedef	struct s_heap
@@ -101,5 +101,6 @@ t_coder	*heap_peek(t_heap	*heap);
 t_coder	*heap_pop(t_heap *heap);
 void	order_dongles(t_coder *coder, t_dongle **first, t_dongle **second);
 int	acquire_dongle_pair(t_coder *coder);
+int	heap_find(t_heap *heap, int coder_id);
 
 #endif

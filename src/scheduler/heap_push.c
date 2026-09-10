@@ -6,51 +6,32 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 03:05:08 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/08 04:08:40 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/10 04:07:48 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	heap_push(t_heap *heap, long key, long sequence, t_coder *coder)
+int	heap_push(t_heap *heap, t_heap_entry new_entry,
+		t_scheduler_type scheduler)
 {
-	int	index;
-
-	if (!heap || !heap->entries || !coder)
-		return -1;
+	if (!heap || !heap->entries)
+		return (-1);
 	if (heap->size >= heap->capacity)
-		return -1;
-	
-	heap->entries[heap->size].coder = coder;
-	heap->entries[heap->size].key = key;
-	heap->entries[heap->size].sequence = sequence;
-	heap->size += 1;
-	
-	index = heap->size - 1;
-	while (index > 0)
+		return (-1);
+	if (heap->size == 0)
 	{
-		int	parent;
-		t_heap_entry temp_entry;
-
-		parent = (index - 1) / 2;
-		if (heap->entries[index].key < heap->entries[parent].key)
-		{
-			temp_entry = heap->entries[parent];
-			heap->entries[parent] = heap->entries[index];
-			heap->entries[index] = temp_entry;
-			index = parent;
-		}else if (heap->entries[index].key == heap->entries[parent].key)
-		{
-			if (heap->entries[index].sequence < heap->entries[parent].sequence)
-			{
-				temp_entry = heap->entries[parent];
-				heap->entries[parent] = heap->entries[index];
-				heap->entries[index] = temp_entry;
-				index = parent;
-			}else
-				break;
-		}else
-			break;
+		heap->entries[0] = new_entry;
+		heap->size = 1;
+		return (0);
 	}
+	if (request_is_better(&new_entry, &heap->entries[0], scheduler))
+	{
+		heap->entries[1] = heap->entries[0];
+		heap->entries[0] = new_entry;
+	}
+	else
+		heap->entries[1] = new_entry;
+	heap->size = 2;
 	return (0);
 }
