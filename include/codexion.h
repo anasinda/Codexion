@@ -86,6 +86,7 @@ int	is_valid_number(char *num_check);
 long long ft_atol(char *str);
 int	parse_args(int argc, char **argv, t_codexion_config *config);
 void	log_state(t_coder *coder, char *message);
+int heap_remove(t_heap *heap, int coder_id);
 int	heap_init(t_heap *heap, int capacity);
 int	heap_push(t_heap *heap, t_heap_entry new_entry, t_scheduler_type scheduler);
 int	check_children(t_heap *heap, int index, int pos_small);
@@ -114,5 +115,7 @@ void	lock_pair(t_coder *coder, t_dongle **first, t_dongle **second);
 void	unlock_pair(t_dongle *first, t_dongle *second);
 int	request_should_yield(t_heap_entry *entry, t_sim *sim);
 int	try_pair_once(t_coder *coder, t_heap_entry *request);
+int	set_request_blocked(t_dongle *dongle, int coder_id, int value);
+
 
 #endif
