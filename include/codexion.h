@@ -116,6 +116,6 @@ void	unlock_pair(t_dongle *first, t_dongle *second);
 int	request_should_yield(t_heap_entry *entry, t_sim *sim);
 int	try_pair_once(t_coder *coder, t_heap_entry *request);
 int	set_request_blocked(t_dongle *dongle, int coder_id, int value);
-
+int	request_has_priority(t_dongle *dongle, t_coder *coder);
 
 #endif
