@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 05:15:13 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/10 05:15:36 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/11 12:58:00 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	dongle_usable_for(t_dongle *dongle, t_coder *coder)
     if (heap_find(&dongle->heap, coder->id) == -1)
         return (0);
 
-    if (dongle->heap.entries[0].coder != coder)
+    if (!request_has_priority(dongle, coder))
         return (0);
 
     return (1);
