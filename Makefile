@@ -18,7 +18,23 @@ SRCS = src/main.c \
        src/utils/time_utils.c \
        src/scheduler/heap_peak.c \
        src/utils/order_dongles.c \
-       src/dongle/dongle_pair_acquire.c
+       src/dongle/dongle_pair_acquire.c \
+       src/requests/build_request.c \
+       src/requests/ensure_queued.c \
+       src/requests/queue_request_pair.c \
+       src/requests/request_is_better.c \
+       src/requests/request_should_yield.c \
+       src/requests/set_request_blocked.c \
+       src/requests/request_has_priority.c \
+       src/requests/pair_usable_for.c \
+       src/requests/claim_pair.c \
+       src/requests/lock_pair.c \
+       src/requests/unlock_pair.c \
+       src/requests/try_pair_once.c \
+       src/scheduler/heap_find.c \
+       src/scheduler/heap_remove.c \
+       src/scheduler/heap_init.c \
+       src/scheduler/heap_push.c \
 
 OBJS = $(SRCS:.c=.o)
 
