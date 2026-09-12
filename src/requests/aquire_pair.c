@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heap_find.c                                        :+:      :+:    :+:   */
+/*   aquire_pair.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/10 04:19:08 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/11 14:12:11 by anasinda         ###   ########.fr       */
+/*   Created: 2026/09/12 05:15:21 by anasinda          #+#    #+#             */
+/*   Updated: 2026/09/12 05:16:01 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	heap_find(t_heap *heap, int coder_id)
+int	acquire_pair(t_coder *coder)
 {
-    if (!heap || !heap->entries)
-        return (-1);
-    if (heap->size > 0 && heap->entries[0].coder->id == coder_id)
-        return (0);
-    if (heap->size > 1 && heap->entries[1].coder->id == coder_id)
-        return (1);
-    return (-1);
+	t_heap_entry	request;
+	int				result;
+
+	build_request(&request, coder);
+
+	while (1)
+	{
+		result = try_pair_once(coder, &request);
+		if (result == 1)
+			return (0);
+		if (result == -1)
+			return (-1);
+		usleep(1000);
+	}
 }

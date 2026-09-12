@@ -30,6 +30,9 @@ SRCS = src/main.c \
        src/requests/lock_pair.c \
        src/requests/unlock_pair.c \
        src/requests/try_pair_once.c \
+	   src/requests/aquire_pair.c \
+	   src/requests/release_pair.c \
+
 
 OBJS = $(SRCS:.c=.o)
 
