@@ -6,11 +6,21 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 06:22:22 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 06:32:04 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+void	finished_coders_cleanup(t_main_vars main_vars)
+{
+	destroy_initialized_coder_mutexes(main_vars.allocated_coders, main_vars.config.number_of_coders);
+	free(main_vars.allocated_coders);
+	pthread_mutex_destroy(&main_vars.simulator.log_lock);
+	pthread_mutex_destroy(&main_vars.simulator.state_lock);
+	destroy_initialized_dongles(main_vars.allocated_dongles, main_vars.config.number_of_coders);
+	free(main_vars.allocated_dongles);
+}
 
 int	check_fail_cases(int argc, char *args, t_main_vars *main_vars)
 {
@@ -86,10 +96,5 @@ int	main(int argc, char **argv)
 		main_vars.join_thread_count++;
 	}
 
-    free(main_vars.allocated_coders);
-    pthread_mutex_destroy(&main_vars.simulator.log_lock);
-    pthread_mutex_destroy(&main_vars.simulator.state_lock);
-    destroy_initialized_dongles(main_vars.allocated_dongles, main_vars.config.number_of_coders);
-    free(main_vars.allocated_dongles);
 	return (0);
 }

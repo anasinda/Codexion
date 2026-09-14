@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/14 05:52:05 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 06:14:03 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 06:29:24 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ int	dongle_init_failed(t_main_vars main_vars)
 int	sim_init_failed(t_main_vars main_vars)
 {
 	fprintf(stderr, "Error detected - FAILED TO INIT SIMULATOR...\n");
+	destroy_initialized_coder_mutexes(main_vars.allocated_coders, main_vars.config.number_of_coders);
+	free(main_vars.allocated_coders);
+	pthread_mutex_destroy(&main_vars.simulator.log_lock);
+	pthread_mutex_destroy(&main_vars.simulator.state_lock);
 	destroy_initialized_dongles(main_vars.allocated_dongles, main_vars.config.number_of_coders);
 	free(main_vars.allocated_dongles);
 	return (1);
