@@ -53,7 +53,10 @@ typedef struct s_sim
 {
 	t_codexion_config	*config;
 	t_dongle	*dongles;
+    t_coder *coders;
 	pthread_mutex_t	log_lock;
+	pthread_mutex_t	state_lock;
+    int stop;
 	long	start_time;
 }	t_sim;
 
@@ -119,5 +122,10 @@ int	set_request_blocked(t_dongle *dongle, int coder_id, int value);
 int	request_has_priority(t_dongle *dongle, t_coder *coder);
 int	acquire_pair(t_coder *coder);
 void	release_pair(t_coder *coder);
+void	stop_simulation(t_sim *sim);
+int	simulation_should_stop(t_sim *sim);
+int	coder_burned_out(t_coder *coder);
+void	*monitor_routine(void *arg);
+int	all_coders_finished(t_sim *sim);
 
 #endif

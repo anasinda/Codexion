@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulator_init.c                                   :+:      :+:    :+:   */
+/*   stop_simulation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/06 17:57:41 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/13 23:21:16 by anasinda         ###   ########.fr       */
+/*   Created: 2026/09/13 23:24:12 by anasinda          #+#    #+#             */
+/*   Updated: 2026/09/13 23:24:20 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_config *config)
+void	stop_simulation(t_sim *sim)
 {
-    int i;
-
-    i = 0;
-    simulator->config = config;
-    simulator->dongles = allocated_dongles;
-    simulator->start_time = 0;
-    simulator->stop = 0;
-
-    if (pthread_mutex_init(&simulator->log_lock, NULL) != 0)
-        return (-1);
-    if (pthread_mutex_init(&simulator->state_lock, NULL) != 0)
-        return (-1);
-
-    return (0);
+	pthread_mutex_lock(&sim->state_lock);
+	sim->stop = 1;
+	pthread_mutex_unlock(&sim->state_lock);
 }

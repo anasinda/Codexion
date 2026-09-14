@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/07 17:53:16 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/12 18:43:42 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	t_coder *allocated_coders;
 	int	coder_thread_count;
 	int	join_thread_count;
-
+	
 	if (parse_args(argc, argv, &config) == -1)
 	{
 		fprintf(stderr, "Error detected - PARSING FAILED...\n");

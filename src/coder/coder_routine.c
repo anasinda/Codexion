@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 15:39:41 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/12 05:43:20 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/13 23:32:49 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*coder_routine(void *arg)
 
 	coder = (t_coder *)arg;
 	req_compile = coder->sim->config->number_of_compiles_required;
-	while (coder->compile_count < req_compile)
+	while ((coder->compile_count < req_compile) && !simulation_should_stop(coder->sim))
 	{
 		if (acquire_pair(coder) != 0)
 			break ;

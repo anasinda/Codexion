@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulator_init.c                                   :+:      :+:    :+:   */
+/*   coder_burned_out.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/06 17:57:41 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/13 23:21:16 by anasinda         ###   ########.fr       */
+/*   Created: 2026/09/13 23:36:56 by anasinda          #+#    #+#             */
+/*   Updated: 2026/09/13 23:38:07 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_config *config)
+int	coder_burned_out(t_coder *coder)
 {
-    int i;
+	long	now;
+	long	deadline;
 
-    i = 0;
-    simulator->config = config;
-    simulator->dongles = allocated_dongles;
-    simulator->start_time = 0;
-    simulator->stop = 0;
+	now = get_elapsed_time(coder->sim);
+	deadline = coder->last_compile_start
+		+ coder->sim->config->time_to_burnout;
 
-    if (pthread_mutex_init(&simulator->log_lock, NULL) != 0)
-        return (-1);
-    if (pthread_mutex_init(&simulator->state_lock, NULL) != 0)
-        return (-1);
-
-    return (0);
+	return (now >= deadline);
 }

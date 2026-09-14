@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   simulator_init.c                                   :+:      :+:    :+:   */
+/*   all_coders_finished.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/06 17:57:41 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/13 23:21:16 by anasinda         ###   ########.fr       */
+/*   Created: 2026/09/13 23:48:15 by anasinda          #+#    #+#             */
+/*   Updated: 2026/09/14 02:53:34 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_config *config)
+int	all_coders_finished(t_sim *sim)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    simulator->config = config;
-    simulator->dongles = allocated_dongles;
-    simulator->start_time = 0;
-    simulator->stop = 0;
-
-    if (pthread_mutex_init(&simulator->log_lock, NULL) != 0)
-        return (-1);
-    if (pthread_mutex_init(&simulator->state_lock, NULL) != 0)
-        return (-1);
-
-    return (0);
+	i = 0;
+	while (i < sim->config->number_of_coders)
+	{
+		if (sim->coders[i].compile_count
+			< sim->config->number_of_compiles_required)
+			return (0);
+		i++;
+	}
+	return (1);
 }
