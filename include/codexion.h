@@ -101,8 +101,6 @@ t_dongle	*allocate_dongles(t_codexion_config *config);
 t_coder *allocate_coders(t_codexion_config *config);
 int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_config *config);
 void destroy_initialized_dongles(t_dongle *dongles, int count);
-t_coder	*heap_peek(t_heap	*heap);
-t_coder	*heap_pop(t_heap *heap);
 void	order_dongles(t_coder *coder, t_dongle **first, t_dongle **second);
 int	heap_find(t_heap *heap, int coder_id);
 int	request_is_better(t_heap_entry *a, t_heap_entry *b, t_scheduler_type scheduler);
