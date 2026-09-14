@@ -6,11 +6,35 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/02 03:05:08 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/10 04:07:48 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 05:13:54 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+int heap_remove(t_heap *heap, int coder_id)
+{
+    int index;
+    
+    index = heap_find(heap, coder_id);
+    if (index == -1)
+        return (-1);
+    if (index == 0 && heap->size == 2)
+        heap->entries[0] = heap->entries[1];
+    heap->size--;
+    return (0);
+}
+
+int	heap_find(t_heap *heap, int coder_id)
+{
+    if (!heap || !heap->entries)
+        return (-1);
+    if (heap->size > 0 && heap->entries[0].coder->id == coder_id)
+        return (0);
+    if (heap->size > 1 && heap->entries[1].coder->id == coder_id)
+        return (1);
+    return (-1);
+}
 
 int	heap_push(t_heap *heap, t_heap_entry new_entry,
 		t_scheduler_type scheduler)

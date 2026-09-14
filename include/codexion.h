@@ -84,6 +84,17 @@ typedef struct s_coder
 	t_sim	*sim;
 }	t_coder;
 
+
+typedef	struct s_main_vars
+{
+	t_codexion_config config;
+	t_sim simulator;
+	t_dongle *allocated_dongles;
+	t_coder *allocated_coders;
+	int	coder_thread_count;
+	int	join_thread_count;
+}	t_main_vars;
+
 long	get_current_time_ms(void);
 long	get_elapsed_time(t_sim *sim);
 int	is_valid_number(char *num_check);
@@ -124,5 +135,10 @@ int	coder_burned_out(t_coder *coder);
 void	*monitor_routine(void *arg);
 int	all_coders_finished(t_sim *sim);
 void	destroy_initialized_coder_mutexes(t_coder *coders, int count);
+int	sim_init_failed(t_main_vars main_vars);
+int	dongle_init_failed(t_main_vars main_vars);
+int coder_allocate_failed(t_main_vars main_vars);
+int coder_init_failed(t_main_vars main_vars);
+int	clock_gettime_failed(t_main_vars main_vars);
 
 #endif

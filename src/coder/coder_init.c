@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 19:26:32 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 03:44:58 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 05:13:05 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ void	destroy_initialized_coder_mutexes(t_coder *coders, int count)
 		pthread_mutex_destroy(&coders[i].state_lock);
 		i++;
 	}
+}
+
+t_coder *allocate_coders(t_codexion_config *config)
+{
+    t_coder *coders;
+    coders = malloc(sizeof(t_coder) * config->number_of_coders);
+    
+    if (!coders)
+        return NULL;
+    return coders;
 }
 
 int	coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n)

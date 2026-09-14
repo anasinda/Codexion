@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 02:16:51 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/10 00:25:25 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 05:12:08 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,18 @@ void	destroy_initialized_dongles(t_dongle	*dongles, int count)
         free(dongles[count].heap.entries);
 	}
 }
+
+t_dongle	*allocate_dongles(t_codexion_config *config)
+{
+	t_dongle *dongles;
+
+	dongles = malloc(sizeof(t_dongle) * config->number_of_coders);
+	if (!dongles)
+		return NULL;
+
+	return dongles;
+}
+
 
 int	dongle_init(t_dongle *dongles, int n)
 {

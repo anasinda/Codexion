@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_request.c                                    :+:      :+:    :+:   */
+/*   queue_request_pair.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/10 04:30:43 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/10 06:06:00 by anasinda         ###   ########.fr       */
+/*   Created: 2026/09/10 05:08:50 by anasinda          #+#    #+#             */
+/*   Updated: 2026/09/14 05:10:55 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,19 @@ void    build_request(t_heap_entry *entry, t_coder *coder)
     entry->coder = coder;
     entry->arrival = get_elapsed_time(coder->sim);
     entry->deadline = coder->last_compile_start + coder->sim->config->time_to_burnout;
+}
+
+int	queue_request_pair(t_coder *coder, t_heap_entry *request)
+{
+	t_scheduler_type	scheduler;
+
+	scheduler = coder->sim->config->scheduler;
+
+	if (ensure_queued(coder->left_dongle, request, scheduler) != 0)
+		return (-1);
+
+	if (ensure_queued(coder->right_dongle, request, scheduler) != 0)
+		return (-1);
+
+	return (0);
 }

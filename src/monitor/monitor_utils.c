@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dongle_usable_for.c                                :+:      :+:    :+:   */
+/*   coder_burned_out.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/10 05:15:13 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/11 12:58:00 by anasinda         ###   ########.fr       */
+/*   Created: 2026/09/13 23:36:56 by anasinda          #+#    #+#             */
+/*   Updated: 2026/09/14 05:15:35 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	dongle_usable_for(t_dongle *dongle, t_coder *coder)
+int	all_coders_finished(t_sim *sim)
 {
-    if (!dongle->available)
-	return (0);
+	int	i;
 
-    if (get_elapsed_time(coder->sim) < dongle->available_after)
-        return (0);
+	i = 0;
+	while (i < sim->config->number_of_coders)
+	{
+		if (sim->coders[i].compile_count
+			< sim->config->number_of_compiles_required)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
-    if (heap_find(&dongle->heap, coder->id) == -1)
-        return (0);
+int	coder_burned_out(t_coder *coder)
+{
+	long	now;
+	long	deadline;
 
-    if (!request_has_priority(dongle, coder))
-        return (0);
+	now = get_elapsed_time(coder->sim);
+	deadline = coder->last_compile_start
+		+ coder->sim->config->time_to_burnout;
 
-    return (1);
+	return (now >= deadline);
 }
