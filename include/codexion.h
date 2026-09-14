@@ -87,6 +87,7 @@ typedef struct s_coder
 
 typedef	struct s_main_vars
 {
+	pthread_t	monitor_thread;
 	t_codexion_config config;
 	t_sim simulator;
 	t_dongle *allocated_dongles;
@@ -142,7 +143,7 @@ int coder_init_failed(t_main_vars main_vars);
 int	clock_gettime_failed(t_main_vars main_vars);
 int	check_fail_cases(int argc, char *args, t_main_vars *main_vars);
 void	debug_refactor_task(t_coder *coder);
-void	thread_creating(t_main_vars *main_vars);
+int	thread_creating(t_main_vars *main_vars);
+int	monitor_thread_create(t_main_vars *main_vars);
 void	thread_joining(t_main_vars *main_vars);
-
 #endif

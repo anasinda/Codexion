@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/14 06:47:01 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 06:47:10 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 07:12:35 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	check_fail_cases(int argc, char *args, t_main_vars *main_vars)
 	if (coder_init(main_vars->allocated_coders, main_vars->allocated_dongles, &main_vars->simulator, main_vars->config.number_of_coders) == -1)
 		return (coder_init_failed(*main_vars));
 	
+    main_vars->simulator.coders = main_vars->allocated_coders;
 	main_vars->simulator.start_time = get_current_time_ms();
     if (main_vars->simulator.start_time == -1)
 		return (clock_gettime_failed(*main_vars));

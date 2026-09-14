@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 06:55:13 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 07:21:35 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,25 @@ void	finished_coders_cleanup(t_main_vars main_vars)
 	free(main_vars.allocated_dongles);
 }
 
-void	thread_creating(t_main_vars *main_vars)
+int	thread_creating(t_main_vars *main_vars)
 {
 	main_vars->coder_thread_count = 0;
 	while (main_vars->coder_thread_count < main_vars->config.number_of_coders)
 	{
 		if (pthread_create(&main_vars->allocated_coders[main_vars->coder_thread_count].thread,
 			NULL, coder_routine, &main_vars->allocated_coders[main_vars->coder_thread_count]) != 0)
-            break;
+            return (-1);
         main_vars->coder_thread_count++;
 	}
+	return (0);
+}
+
+int	monitor_thread_create(t_main_vars *main_vars)
+{
+	if (pthread_create(&main_vars->monitor_thread, NULL,
+			monitor_routine, &main_vars->simulator) != 0)
+		return (-1);
+	return (0);
 }
 
 void	thread_joining(t_main_vars *main_vars)
@@ -54,6 +63,8 @@ int	main(int argc, char **argv)
 	
 	thread_creating(&main_vars);
 	
+	monitor_thread_create(&main_vars);
+
 	thread_joining(&main_vars);
 	
 	finished_coders_cleanup(main_vars);
