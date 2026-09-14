@@ -144,6 +144,5 @@ int	check_fail_cases(int argc, char *args, t_main_vars *main_vars);
 void	debug_refactor_task(t_coder *coder);
 void	thread_creating(t_main_vars *main_vars);
 void	thread_joining(t_main_vars *main_vars);
-void	debug_refactor_task(t_coder *coder);
 
 #endif
