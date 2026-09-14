@@ -6,13 +6,13 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/03 19:26:32 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/06 11:44:38 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 03:24:58 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void    coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n)
+int	coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n)
 {
     int i;
 
@@ -28,6 +28,9 @@ void    coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n)
         coders[i].last_compile_start = 0;
         coders[i].compile_count = 0;
         coders[i].sim = sim;
+        if (pthread_mutex_init(&coders[i].state_lock, NULL) != 0)
+            return (-1);
         i++;
     }
+	return (0);
 }

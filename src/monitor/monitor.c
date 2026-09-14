@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 23:40:24 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/13 23:45:16 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 03:10:23 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ void	*monitor_routine(void *arg)
 		i = 0;
 		while (i < sim->config->number_of_coders)
 		{
+			if (all_coders_finished(sim))
+			{
+				stop_simulation(sim);
+				return (NULL);
+			}
+			
 			if (coder_burned_out(&sim->coders[i]))
 			{
 				log_state(&sim->coders[i], "burned out");

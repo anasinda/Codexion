@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/12 18:43:42 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 03:35:51 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,14 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 
-	coder_init(allocated_coders, allocated_dongles, &simulator, config.number_of_coders);
+	if (coder_init(allocated_coders, allocated_dongles, &simulator, config.number_of_coders) == -1)
+	{
+		fprintf(stderr, "Error detected - Mutex init failed...\n");
+		free(allocate_dongles);
+		free(allocate_coders);
+		return (1);
+	}
+	
 	simulator.start_time = get_current_time_ms();
     if (simulator.start_time == -1)
     {

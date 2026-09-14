@@ -80,6 +80,7 @@ typedef struct s_coder
 	t_dongle	*right_dongle;
 	long	last_compile_start;
 	int	compile_count;
+	pthread_mutex_t state_lock;
 	t_sim	*sim;
 }	t_coder;
 
@@ -92,11 +93,9 @@ void	log_state(t_coder *coder, char *message);
 int heap_remove(t_heap *heap, int coder_id);
 int	heap_init(t_heap *heap, int capacity);
 int	heap_push(t_heap *heap, t_heap_entry new_entry, t_scheduler_type scheduler);
-int	check_children(t_heap *heap, int index, int pos_small);
 int	dongle_init(t_dongle *dongles, int n);
-int	dongle_acquire(t_dongle	*dongle, t_coder *coder);
 void	dongle_release(t_codexion_config *config, t_dongle *dongle, long now);
-void    coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n);
+int    coder_init(t_coder *coders, t_dongle *dongles, t_sim *sim, int n);
 void	*coder_routine(void *arg);
 t_dongle	*allocate_dongles(t_codexion_config *config);
 t_coder *allocate_coders(t_codexion_config *config);
@@ -105,7 +104,6 @@ void destroy_initialized_dongles(t_dongle *dongles, int count);
 t_coder	*heap_peek(t_heap	*heap);
 t_coder	*heap_pop(t_heap *heap);
 void	order_dongles(t_coder *coder, t_dongle **first, t_dongle **second);
-int	acquire_dongle_pair(t_coder *coder);
 int	heap_find(t_heap *heap, int coder_id);
 int	request_is_better(t_heap_entry *a, t_heap_entry *b, t_scheduler_type scheduler);
 void    build_request(t_heap_entry *entry, t_coder *coder);
