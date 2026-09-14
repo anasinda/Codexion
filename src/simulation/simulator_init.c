@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/06 17:57:41 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/13 23:21:16 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 06:37:02 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int simulator_init(t_sim *simulator, t_dongle *allocated_dongles, t_codexion_con
     if (pthread_mutex_init(&simulator->log_lock, NULL) != 0)
         return (-1);
     if (pthread_mutex_init(&simulator->state_lock, NULL) != 0)
+    {
+        pthread_mutex_destroy(&simulator->log_lock);
         return (-1);
-
+    }
     return (0);
 }

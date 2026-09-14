@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 06:32:04 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 06:34:45 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	check_fail_cases(int argc, char *args, t_main_vars *main_vars)
 	main_vars->simulator.start_time = get_current_time_ms();
     if (main_vars->simulator.start_time == -1)
 		return (clock_gettime_failed(*main_vars));
+	return (0);
 }
-
 
 int	main(int argc, char **argv)
 {
@@ -80,6 +80,9 @@ int	main(int argc, char **argv)
     // if (main_vars.simulator.start_time == -1)
 	// 	return (clock_gettime_failed(main_vars));
 
+	if (check_fail_cases(argc, argv, &main_vars) != 0)
+	return (1);
+	
 	main_vars.coder_thread_count = 0;
 	while (main_vars.coder_thread_count < main_vars.config.number_of_coders)
 	{
@@ -96,5 +99,6 @@ int	main(int argc, char **argv)
 		main_vars.join_thread_count++;
 	}
 
+	finished_coders_cleanup(main_vars);
 	return (0);
 }
