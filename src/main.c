@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 03:35:51 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/14 04:02:29 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ int	main(int argc, char **argv)
 	if (coder_init(allocated_coders, allocated_dongles, &simulator, config.number_of_coders) == -1)
 	{
 		fprintf(stderr, "Error detected - Mutex init failed...\n");
-		free(allocate_dongles);
-		free(allocate_coders);
+		pthread_mutex_destroy(&simulator.log_lock);
+        destroy_initialized_dongles(allocated_dongles, config.number_of_coders);
+		free(allocated_dongles);
+		free(allocated_coders);
 		return (1);
 	}
 	

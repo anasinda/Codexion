@@ -125,5 +125,6 @@ int	simulation_should_stop(t_sim *sim);
 int	coder_burned_out(t_coder *coder);
 void	*monitor_routine(void *arg);
 int	all_coders_finished(t_sim *sim);
+void	destroy_initialized_coder_mutexes(t_coder *coders, int count);
 
 #endif
