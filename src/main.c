@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/15 04:51:34 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 05:01:45 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ int	main(int argc, char **argv)
 	if (check_fail_cases(argc, argv, &main_vars) != 0)
 	return (1);
 	
-	if (thread_creating(&main_vars) != 0)
+	if (thread_creating(&main_vars) != 0 || monitor_thread_create(&main_vars) != 0)
 		return (thread_creation_failed(&main_vars));
-	
-	monitor_thread_create(&main_vars);
 
 	thread_joining(&main_vars);
 	
