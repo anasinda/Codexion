@@ -142,10 +142,12 @@ int coder_allocate_failed(t_main_vars main_vars);
 int coder_init_failed(t_main_vars main_vars);
 int	clock_gettime_failed(t_main_vars main_vars);
 int	check_fail_cases(int argc, char *args, t_main_vars *main_vars);
-void	debug_refactor_task(t_coder *coder);
+int	debug_refactor_task(t_coder *coder);
 int	thread_creating(t_main_vars *main_vars);
 int	monitor_thread_create(t_main_vars *main_vars);
 void	thread_joining(t_main_vars *main_vars);
 int	thread_creation_failed(t_main_vars *main_vars);
+int	simulation_sleep(t_sim *sim, long duration_ms);
+
 
 #endif

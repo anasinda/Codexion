@@ -6,11 +6,25 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 16:50:45 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/01 03:20:23 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 05:21:21 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+int	simulation_sleep(t_sim *sim, long duration_ms)
+{
+	long	start;
+
+	start = get_elapsed_time(sim);
+	while (!simulation_should_stop(sim))
+	{
+		if (get_elapsed_time(sim) - start >= duration_ms)
+			return (0);
+		usleep(1000);
+	}
+	return (-1);
+}
 
 long	get_current_time_ms(void)
 {
