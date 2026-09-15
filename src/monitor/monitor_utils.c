@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 23:36:56 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 07:09:15 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 06:56:05 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,18 @@ int	coder_burned_out(t_coder *coder)
 {
 	long	now;
 	long	deadline;
+	int	compile_count;
 	long	last_compile_start;
 
 	now = get_elapsed_time(coder->sim);
 	
 	pthread_mutex_lock(&coder->state_lock);
 	last_compile_start = coder->last_compile_start;
+	compile_count = coder->compile_count;
 	pthread_mutex_unlock(&coder->state_lock);
+	
+	if (compile_count >= coder->sim->config->number_of_compiles_required)
+	return (0);
 	
 	deadline = last_compile_start
 		+ coder->sim->config->time_to_burnout;
