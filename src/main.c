@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/29 17:49:31 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 07:33:05 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 04:51:34 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	monitor_thread_create(t_main_vars *main_vars)
 	if (pthread_create(&main_vars->monitor_thread, NULL,
 			monitor_routine, &main_vars->simulator) != 0)
 		return (-1);
-	pthread_join(main_vars->monitor_thread, NULL);
 	return (0);
 }
 
@@ -62,11 +61,14 @@ int	main(int argc, char **argv)
 	if (check_fail_cases(argc, argv, &main_vars) != 0)
 	return (1);
 	
-	thread_creating(&main_vars);
+	if (thread_creating(&main_vars) != 0)
+		return (thread_creation_failed(&main_vars));
 	
 	monitor_thread_create(&main_vars);
 
 	thread_joining(&main_vars);
+	
+	pthread_join(main_vars.monitor_thread, NULL);
 	
 	finished_coders_cleanup(main_vars);
 	return (0);

@@ -146,4 +146,6 @@ void	debug_refactor_task(t_coder *coder);
 int	thread_creating(t_main_vars *main_vars);
 int	monitor_thread_create(t_main_vars *main_vars);
 void	thread_joining(t_main_vars *main_vars);
+int	thread_creation_failed(t_main_vars *main_vars);
+
 #endif
