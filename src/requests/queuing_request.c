@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   queue_request_pair.c                               :+:      :+:    :+:   */
+/*   queuing_request.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 05:08:50 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 05:10:55 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 07:13:17 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void    build_request(t_heap_entry *entry, t_coder *coder)
+void	build_request(t_heap_entry *entry, t_coder *coder)
 {
-    entry->blocked = 0;
-    entry->coder = coder;
-    entry->arrival = get_elapsed_time(coder->sim);
-    entry->deadline = coder->last_compile_start + coder->sim->config->time_to_burnout;
+	long	last_compile_start;
+
+	entry->blocked = 0;
+	entry->coder = coder;
+	entry->arrival = get_elapsed_time(coder->sim);
+	pthread_mutex_lock(&coder->state_lock);
+	last_compile_start = coder->last_compile_start;
+	pthread_mutex_unlock(&coder->state_lock);
+	entry->deadline = last_compile_start
+		+ coder->sim->config->time_to_burnout;
 }
 
 int	queue_request_pair(t_coder *coder, t_heap_entry *request)
