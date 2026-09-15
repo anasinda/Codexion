@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 15:23:58 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/15 07:34:17 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 20:05:07 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,30 @@ int	request_is_better(t_heap_entry *a, t_heap_entry *b, t_scheduler_type schedul
 
 int	request_should_yield(t_heap_entry *entry, t_sim *sim)
 {
-	long	waited;
+	long	blocked_for;
 	long	limit;
 
 	if (!entry->blocked)
 		return (0);
-	waited = get_elapsed_time(sim) - entry->arrival;
+	blocked_for = get_elapsed_time(sim) - entry->blocked_since;
 	limit = sim->config->time_to_compile
 		+ sim->config->dongle_cooldown;
-	return (waited < limit);
+	return (blocked_for < limit);
 }
 
 int	set_request_blocked(t_dongle *dongle, int coder_id, int value)
 {
-	int	index;
+	int				index;
+	t_heap_entry	*entry;
 
 	index = heap_find(&dongle->heap, coder_id);
 	if (index == -1)
 		return (-1);
-	dongle->heap.entries[index].blocked = value;
+	entry = &dongle->heap.entries[index];
+	if (value && !entry->blocked)
+		entry->blocked_since = get_elapsed_time(entry->coder->sim);
+	else if (!value)
+		entry->blocked_since = 0;
+	entry->blocked = value;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/10 05:08:50 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/15 07:13:17 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 20:01:13 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	build_request(t_heap_entry *entry, t_coder *coder)
 	long	last_compile_start;
 
 	entry->blocked = 0;
+	entry->blocked_since = 0;
 	entry->coder = coder;
 	entry->arrival = get_elapsed_time(coder->sim);
 	pthread_mutex_lock(&coder->state_lock);

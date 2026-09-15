@@ -40,6 +40,7 @@ typedef struct s_heap_entry
 	long arrival;
 	long deadline;
 	long blocked;
+	long	blocked_since;
 } t_heap_entry;
 
 typedef	struct s_heap
