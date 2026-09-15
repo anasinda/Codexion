@@ -6,7 +6,7 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/04 15:39:41 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/15 05:35:53 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 05:38:13 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	debug_refactor_task(t_coder *coder)
 	log_state(coder, "is refactoring");
 	if (simulation_sleep(coder->sim, coder->sim->config->time_to_refactor) != 0)
 		return (-1);
-	return (0)
+	return (0);
 }
 
 void	*coder_routine(void *arg)
@@ -42,7 +42,10 @@ void	*coder_routine(void *arg)
 
 		log_state(coder, "is compiling");
 		if (simulation_sleep(coder->sim, coder->sim->config->time_to_compile) != 0)
+		{
+			release_pair(coder);
 			break;
+		}
 
 		pthread_mutex_lock(&coder->state_lock);
 		coder->compile_count++;

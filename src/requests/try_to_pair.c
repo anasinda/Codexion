@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   aquire_pair.c                                      :+:      :+:    :+:   */
+/*   try_to_pair.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 05:15:21 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 05:05:28 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 05:39:59 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+void	unlock_pair(t_dongle *first, t_dongle *second)
+{
+	pthread_mutex_unlock(&second->dongle_mutex);
+	pthread_mutex_unlock(&first->dongle_mutex);
+}
 
 void	lock_pair(t_coder *coder, t_dongle **first, t_dongle **second)
 {

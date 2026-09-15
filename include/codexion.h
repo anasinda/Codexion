@@ -149,5 +149,4 @@ void	thread_joining(t_main_vars *main_vars);
 int	thread_creation_failed(t_main_vars *main_vars);
 int	simulation_sleep(t_sim *sim, long duration_ms);
 
-
 #endif
