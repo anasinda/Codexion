@@ -6,13 +6,13 @@
 /*   By: anasinda <anasinda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/14 06:47:01 by anasinda          #+#    #+#             */
-/*   Updated: 2026/09/14 07:12:35 by anasinda         ###   ########.fr       */
+/*   Updated: 2026/09/15 05:46:09 by anasinda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	check_fail_cases(int argc, char *args, t_main_vars *main_vars)
+int	check_fail_cases(int argc, char **args, t_main_vars *main_vars)
 {
 	if (parse_args(argc, args, &main_vars->config) == -1)
 		return (fprintf(stderr, "Error detected - PARSING FAILED...\n"), (1));
